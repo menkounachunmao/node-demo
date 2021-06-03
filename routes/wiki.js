@@ -2,7 +2,7 @@
  * @Author: xx
  * @Date: 2021-06-03 15:50:11
  * @LastEditors: 青峰
- * @LastEditTime: 2021-06-03 15:52:17
+ * @LastEditTime: 2021-06-03 16:01:28
  * @FilePath: /helloworld/routes/wiki.js
  */
 
@@ -18,5 +18,10 @@ router.get('/', (req, res)=>{
 router.get('/about',(req, res)=>{
     res.send('关于')
 })
+
+router.get('/test/:id/books/:bookId',(req, res)=>{
+    res.send(`id:${req.params.id};bookId:${req.params.bookId}`)
+})
+
 
 module.exports = router;

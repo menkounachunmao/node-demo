@@ -2,7 +2,7 @@
  * @Author: xx
  * @Date: 2021-06-03 09:44:52
  * @LastEditors: 青峰
- * @LastEditTime: 2021-06-03 15:53:25
+ * @LastEditTime: 2021-06-03 17:15:26
  * @FilePath: /helloworld/app.js
  */
 var createError = require('http-errors');
@@ -15,6 +15,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const wiki = require('./routes/wiki');
+const catalogRouter = require('./routes/catalog')
 var app = express();
 
 // view engine setup
@@ -30,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/wiki',wiki);
+app.use('/catalog',catalogRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
