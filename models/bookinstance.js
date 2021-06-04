@@ -2,9 +2,10 @@
  * @Author: xx
  * @Date: 2021-06-03 14:35:39
  * @LastEditors: 青峰
- * @LastEditTime: 2021-06-03 15:05:45
+ * @LastEditTime: 2021-06-04 16:50:18
  * @FilePath: /helloworld/models/bookinstance.js
  */
+const moment = require('moment');
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
@@ -26,10 +27,17 @@ const BookInstanceSchema = new Schema({
 
 // 虚拟属性'url'：藏书副本 URL
 BookInstanceSchema
-  .virtual('url')
-  .get(function () {
-    return '/catalog/bookinstance/' + this._id;
-  });
+    .virtual('url')
+    .get(function () {
+        return '/catalog/bookinstance/' + this._id;
+    });
+
+// 格式化日期
+BookInstanceSchema
+    .virtual('due_back_formatted')
+    .get(function(){
+        return moment(this.due_back).format('MMMM Do, YYYY')
+    })
 
 // 导出 BookInstancec 模型
 module.exports = mongoose.model('BookInstance', BookInstanceSchema);
