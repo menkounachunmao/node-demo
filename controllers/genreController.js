@@ -2,13 +2,22 @@
  * @Author: xx
  * @Date: 2021-06-03 16:36:09
  * @LastEditors: 青峰
- * @LastEditTime: 2021-06-03 16:52:47
+ * @LastEditTime: 2021-06-04 17:21:46
  * @FilePath: /helloworld/controllers/genreController.js
  */
 const Genre = require('../models/genre');
 
 
-exports.genre_list = (req, res) => { res.send('未实现：genre列表'); };
+exports.genre_list = (req, res,next) => { 
+    Genre.find()
+    .sort([['name']])
+    .exec(function(err,list_genre){
+        if(err){
+            return next(err)
+        }
+        res.render('genre_list',{ title: 'Genre List', genre_list:list_genre})
+    })
+ };
 
 exports.genre_detail = (req, res) => { res.send('未实现：genre详细信息：' + req.params.id); };
 
