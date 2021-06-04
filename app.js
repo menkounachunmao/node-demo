@@ -2,7 +2,7 @@
  * @Author: xx
  * @Date: 2021-06-03 09:44:52
  * @LastEditors: 青峰
- * @LastEditTime: 2021-06-03 17:15:26
+ * @LastEditTime: 2021-06-04 14:34:04
  * @FilePath: /helloworld/app.js
  */
 var createError = require('http-errors');
@@ -14,9 +14,18 @@ var logger = require('morgan');
 // 导入路由
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-const wiki = require('./routes/wiki');
 const catalogRouter = require('./routes/catalog')
 var app = express();
+
+
+// 设置 Mongoose 连接
+const mongoose = require('mongoose');
+const mongoDB = 'mongodb+srv://test:qf123012@realmcluster.riqbf.mongodb.net/LocalLibrary?retryWrites=true&w=majority';
+mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
+mongoose.Promise = global.Promise;
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB 连接错误：'));
+
 
 // view engine setup
 // 设置模版路径
