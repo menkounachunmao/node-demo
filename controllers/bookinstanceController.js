@@ -2,14 +2,23 @@
  * @Author: xx
  * @Date: 2021-06-03 16:35:52
  * @LastEditors: 青峰
- * @LastEditTime: 2021-06-03 16:35:52
+ * @LastEditTime: 2021-06-04 16:44:17
  * @FilePath: /helloworld/controllers/bookinstanceController.js
  */
 
-const Bookinstance = require('../models/bookinstance');
+const BookInstance = require('../models/bookinstance');
 
 
-exports.bookinstance_list = (req, res) => { res.send('未实现：bookinstance列表'); };
+exports.bookinstance_list = function(req, res, next) {
+    BookInstance.find()
+      .populate('book')
+      .exec(function (err, list_bookinstances) {
+        if (err) { return next(err); }
+        // Successful, so render
+        res.render('bookinstance_list', { title: 'Book Instance List', bookinstance_list: list_bookinstances });
+      });
+  
+  };
 
 exports.bookinstance_detail = (req, res) => { res.send('未实现：bookinstance详细信息：' + req.params.id); };
 
