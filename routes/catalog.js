@@ -2,7 +2,7 @@
  * @Author: xx
  * @Date: 2021-06-03 16:53:19
  * @LastEditors: 青峰
- * @LastEditTime: 2021-06-04 16:43:29
+ * @LastEditTime: 2021-06-04 17:02:45
  * @FilePath: /helloworld/routes/catalog.js
  */
 const express = require('express');
@@ -46,4 +46,5 @@ router.get('/books', book_controller.book_list);
 /// 藏书副本、藏书种类、作者的路由与藏书路由结构基本一致，只是无需获取主页 ///
 router.get('/bookinstances', book_instance_controller.bookinstance_list);
 
+router.get('/authors', author_controller.author_list);
 module.exports = router;

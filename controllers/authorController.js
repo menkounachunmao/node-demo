@@ -2,14 +2,23 @@
  * @Author: xx
  * @Date: 2021-06-03 16:35:08
  * @LastEditors: 青峰
- * @LastEditTime: 2021-06-03 16:43:52
+ * @LastEditTime: 2021-06-04 16:59:22
  * @FilePath: /helloworld/controllers/authorController.js
  */
 
 const Author = require('../models/author');
 
 // 显示完整的作者列表
-exports.author_list = (req, res) => { res.send('未实现：作者列表'); };
+exports.author_list = (req, res, next) => { 
+    Author.find()
+    .sort([['family_name', 'ascending']])
+    .exec(function (err, list_author){
+        if(err){
+            return next(err)
+        }
+        res.render('author_list', { title: 'Author List', author_list: list_author})
+    })
+ };
 
 // 为每位作者显示详细信息的页面
 exports.author_detail = (req, res) => { res.send('未实现：作者详细信息：' + req.params.id); };

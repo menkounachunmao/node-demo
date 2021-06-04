@@ -2,11 +2,13 @@
  * @Author: xx
  * @Date: 2021-06-03 14:35:18
  * @LastEditors: 青峰
- * @LastEditTime: 2021-06-03 14:51:18
+ * @LastEditTime: 2021-06-04 17:08:49
  * @FilePath: /helloworld/models/author.js
  */
 
 const mongoose = require('mongoose');
+
+const moment = require('moment');
 
 const Schema = mongoose.Schema;
 
@@ -32,6 +34,16 @@ AuthorSchema.virtual('lifespan')
 AuthorSchema.virtual('url')
 .get(function(){
     return '/catalog/author/' + this._id;
+})
+
+AuthorSchema.virtual('date_of_birth_formatted')
+.get(function(){
+    return this.date_of_birth? moment(this.date_of_birth).format('MMMM Do, YYYY') : ''
+})
+
+AuthorSchema.virtual('date_of_death_formatted')
+.get(function(){
+    return this.date_of_death? moment(this.date_of_death).format('MMMM Do, YYYY') : ''
 })
 
 module.exports = mongoose.model('Author', AuthorSchema)
