@@ -2,7 +2,7 @@
  * @Author: xx
  * @Date: 2021-06-03 16:53:19
  * @LastEditors: 青峰
- * @LastEditTime: 2021-06-04 17:14:12
+ * @LastEditTime: 2021-06-07 11:46:49
  * @FilePath: /helloworld/routes/catalog.js
  */
 const express = require('express');
@@ -49,4 +49,6 @@ router.get('/bookinstances', book_instance_controller.bookinstance_list);
 router.get('/authors', author_controller.author_list);
 
 router.get('/genres', genre_controller.genre_list);
+
+router.get('/genre/:id', genre_controller.genre_detail);
 module.exports = router;
