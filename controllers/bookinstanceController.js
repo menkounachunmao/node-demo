@@ -2,7 +2,7 @@
  * @Author: xx
  * @Date: 2021-06-03 16:35:52
  * @LastEditors: 青峰
- * @LastEditTime: 2021-06-04 16:44:17
+ * @LastEditTime: 2021-06-07 18:25:34
  * @FilePath: /helloworld/controllers/bookinstanceController.js
  */
 
@@ -20,7 +20,22 @@ exports.bookinstance_list = function(req, res, next) {
   
   };
 
-exports.bookinstance_detail = (req, res) => { res.send('未实现：bookinstance详细信息：' + req.params.id); };
+  exports.bookinstance_detail = function(req, res, next) {
+
+    BookInstance.findById(req.params.id)
+    .populate('book')
+    .exec(function (err, bookinstance) {
+      if (err) { return next(err); }
+      if (bookinstance==null) { // No results.
+          var err = new Error('Book copy not found');
+          err.status = 404;
+          return next(err);
+        }
+      // Successful, so render.
+      res.render('bookinstance_detail', { title: 'Book:', bookinstance:  bookinstance});
+    })
+
+};
 
 exports.bookinstance_create_get = (req, res) => { res.send('未实现：bookinstance创建表单的 GET'); };
 
