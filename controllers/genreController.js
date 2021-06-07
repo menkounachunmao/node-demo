@@ -2,7 +2,7 @@
  * @Author: xx
  * @Date: 2021-06-03 16:36:09
  * @LastEditors: 青峰
- * @LastEditTime: 2021-06-07 11:47:51
+ * @LastEditTime: 2021-06-07 11:52:12
  * @FilePath: /helloworld/controllers/genreController.js
  */
 const Genre = require('../models/genre');

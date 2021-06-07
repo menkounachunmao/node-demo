@@ -2,7 +2,7 @@
  * @Author: xx
  * @Date: 2021-06-03 16:35:30
  * @LastEditors: 青峰
- * @LastEditTime: 2021-06-04 15:01:05
+ * @LastEditTime: 2021-06-07 12:06:35
  * @FilePath: /helloworld/controllers/bookController.js
  */
 
@@ -45,8 +45,30 @@ exports.book_list = (req, res,next) => {
  })
 };
 
-exports.book_detail = (req, res) => {
-  res.send("未实现：Book详细信息：" + req.params.id);
+exports.book_detail = (req, res, next) => {
+  async.parallel({
+    book: function(callback){
+      Book.findById(req.params.id)
+      .populate('author')
+      .populate('genre')
+      .exec(callback)
+    },
+    book_instance: function(callback){
+       BookInstance.find({ 'book': req.params.id})
+       .exec(callback)
+    }
+  },
+  function(err, results){
+    if(err){
+        return next(err)
+    }
+    if(results.book == null){
+        var err = new Error('Book not found');
+        err.status = 404;
+        return next(err);
+    }
+    res.render('book_detail', { title: 'Title', book:  results.book, book_instances: results.book_instance})
+})
 };
 
 exports.book_create_get = (req, res) => {
