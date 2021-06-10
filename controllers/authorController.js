@@ -2,7 +2,7 @@
  * @Author: xx
  * @Date: 2021-06-03 16:35:08
  * @LastEditors: 青峰
- * @LastEditTime: 2021-06-09 20:13:05
+ * @LastEditTime: 2021-06-10 09:49:38
  * @FilePath: /helloworld/controllers/authorController.js
  */
 
@@ -47,7 +47,7 @@ exports.author_detail = (req, res, next) => {
         res.render('author_detail', { title: 'Author Detail', author: results.author, author_books: results.author_books})
     })
  };
-
+// ff
 // 由 GET 显示创建作者的表单
 exports.author_create_get = (req, res) => { 
     res.render('author_form', { title: 'Create Author',errors: errors.array()});
