@@ -2,7 +2,7 @@
  * @Author: xx
  * @Date: 2021-06-03 14:35:18
  * @LastEditors: 青峰
- * @LastEditTime: 2021-06-07 18:34:36
+ * @LastEditTime: 2021-06-11 16:25:18
  * @FilePath: /helloworld/models/author.js
  */
 
@@ -27,7 +27,7 @@ AuthorSchema.virtual('name').get(function(){
 // 虚拟属性：作者寿命
 AuthorSchema.virtual('lifespan')
 .get(function(){
-    return (this.date_of_death.getYear() - this.date_of_birth.getYear()).toString();
+    return (this.date_of_death?.getYear() - this.date_of_birth?.getYear()).toString();
 })
 
 // 虚拟属性：作者url
