@@ -2,15 +2,16 @@
  * @Author: xx
  * @Date: 2021-06-03 16:35:08
  * @LastEditors: 青峰
- * @LastEditTime: 2021-06-10 20:08:14
+ * @LastEditTime: 2021-06-11 16:14:20
  * @FilePath: /helloworld/controllers/authorController.js
  */
 
 const { default: async, retry } = require('async');
+const { query } = require('express');
 const { body, validationResult, sanitizeBody } = require('express-validator');
 const Author = require('../models/author');
 const Book = require('../models/book');
-
+const moment = require('moment');
 // 显示完整的作者列表
 exports.author_list = (req, res, next) => { 
     Author.find()
@@ -140,7 +141,16 @@ exports.author_delete_post = function(req, res, next) {
 };
 
 // 由 GET 显示更新作者的表单
-exports.author_update_get = (req, res) => { res.send('未实现：作者更新表单的 GET'); };
+exports.author_update_get = (req, res, next) => { 
+    Author.findById(req.params.id)
+    // 修改为javascript对象
+    .lean()
+    .exec(function(err, author_detail){
+        author_detail.date_of_birth = moment(author_detail.date_of_birth).format('YYYY-MM-DD');
+        author_detail.date_of_death = moment(author_detail.date_of_death).format('YYYY-MM-DD');
+        res.render('author_form', { title: 'Update Author', author: author_detail,})
+    })
+ };
 
 // 由 POST 处理作者更新操作
 exports.author_update_post = (req, res) => { res.send('未实现：更新作者的 POST'); };
